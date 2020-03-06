@@ -1,4 +1,4 @@
-pacman::p_load(dplyr, ggplot2)
+pacman::p_load(tidyverse)
 
 #### EXERCISE 1
 
@@ -93,6 +93,20 @@ plot(phi)
 plot(epsilon_p)
 plot(epsilon_u)
 plot(phi,epsilon_p)
+plot(epsilon_p,epsilon_u)
+plot(epsilon_u,phi)
+
+
+
+data_ex3 <- tibble("Time" = (1:time_steps/100), "Phi" = phi, "Epsilon_p" = epsilon_p, "Epsilon_u" = epsilon_u)
+
+data_ex3_long <- data_ex3 %>% 
+  pivot_longer(cols = c("Phi", "Epsilon_p", "Epsilon_u"))
+
+ggplot(data_ex3_long, aes(Time, value, color=name))+
+  geom_line(aes(linetype=name))+
+  theme_bw()+
+  ylim(-2, 3)
 
 #### EXERCISE 4
 
